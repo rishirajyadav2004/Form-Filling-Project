@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Voice-Based Signup Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"], input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .voice-button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .voice-button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Signup Form</h2>
+        <form id="signupForm">
+            <input type="text" id="name" placeholder="Name" required><br>
+            <input type="email" id="email" placeholder="Email" required><br>
+            <input type="password" id="password" placeholder="Password" required><br>
+            <button type="submit">Sign Up</button>
+            <button type="button" class="voice-button" onclick="startVoiceInput()">🎤 Use Voice</button>
+        </form>
+    </div>
+
+    <script>
+        function startVoiceInput() {
+            if (!('webkitSpeechRecognition' in window)) {
+                alert("Sorry, your browser does not support voice recognition.");
+                return;
+            }
+
+            const recognition = new webkitSpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
+
+            recognition.start();
+
+            recognition.onresult = function(event) {
+                const result = event.results[0][0].transcript;
+                fillFormFields(result);
+            };
+
+            recognition.onerror = function(event) {
+                console.error("Error occurred: " + event.error);
+            };
+        }
+
+        function fillFormFields(voiceInput) {
+            // Example logic to fill form fields based on voice input
+            const words = voiceInput.split(' ');
+            document.getElementById("name").value = words[0] || '';
+            document.getElementById("email").value = words[1] ? words[1].toLowerCase() + "@example.com" : '';
+            document.getElementById("password").value = words[2] || 'defaultPassword';
+        }
+    </script>
+</body>
+</html>

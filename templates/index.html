@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Insurance Form</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">Insure<span>Now</span></div>
+        <button class="signup-btn" onclick="openSignup()" <a href="/project2/templates/signup-btn.html">>Sign Up</button>
+    </header>
+
+    <h1 class="heading-xlarge">
+        Collect your 
+        <span style="display: block;">
+            <span id="dynamic-text" class="text-color-primary">Employee’s</span>
+            <span class="typed-cursor typed-cursor--blink">|</span>
+        </span> 
+        voice
+    </h1>
+
+    <div class="form-container">
+        <h1 id="formTitle">Medical Insurance Form</h1>
+        <label id="languageLabel">Language:
+            <select id="languageSelect" onchange="changeLanguage()">
+                <option value="en">English</option>
+                <option value="hi">Hindi</option>
+            </select>
+        </label>
+    </div>
+
+    <div class="ml">
+        <form id="insuranceForm" method="POST" action="/submit">
+            <section class="section">
+                <h2 id="personalInfoTitle">Personal Information</h2>
+                <label id="firstNameLabel">First Name:
+                    <input type="text" id="firstName" placeholder="First Name">
+                    <button type="button" class="voice-icon" onclick="startVoiceInput('firstName')">🎤</button>
+                </label>
+                <label id="middleNameLabel">Middle Name:
+                    <input type="text" id="middleName" placeholder="Middle Name">
+                    <button type="button" class="voice-icon" onclick="startVoiceInput('middleName')">🎤</button>
+                </label>
+                <label id="lastNameLabel">Last Name:
+                    <input type="text" id="lastName" placeholder="Last Name">
+                    <button type="button" class="voice-icon" onclick="startVoiceInput('lastName')">🎤</button>
+                </label>
+                <label id="genderLabel">Gender:
+                    <select id="gender">
+                        <option value="">Select</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <button type="button" class="voice-icon" onclick="startVoiceInput('gender')">🎤</button>
+                </label>
+                <label id="ageLabel">Age:
+                    <input type="number" id="age" name="age" placeholder="Age">
+                    <button type="button" class="voice-icon" onclick="startVoiceInput('age')">🎤</button>
+                </label>
+                <label id="statusLabel">Status:
+                    <select id="status">
+                        <option value="">Select</option>
+                        <option value="Single">Single</option>
+                        <option value="Married">Married</option>
+                        <option value="Student">Student</option>
+                        <option value="Employed">Employed</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <button type="button" class="voice-icon" onclick="startVoiceInput('status')">🎤</button>
+                </label>
+                <label id="dobLabel">Date of Birth:
+                    <input type="date" id="dob">
+                    <button type="button" class="voice-icon" onclick="startVoiceInput('dob')">🎤</button>
+                </label>
+            </section>
+        
+            <section class="section">
+                <h2 id="contactInfoTitle">Contact Information</h2>
+                <label id="streetAddressLabel">Street Address:
+                    <input type="text" id="streetAddress" placeholder="Street Address">
+                    <button type="button" class="voice-icon" onclick="startVoiceInput('streetAddress')">🎤</button>
+                </label>
+                <label id="cityLabel">City:
+                    <input type="text" id="city" placeholder="City">
+                    <button type="button" class="voice-icon" onclick="startVoiceInput('city')">🎤</button>
+                </label>
+                <label id="stateProvinceLabel">State/Province:
+                    <input type="text" id="stateProvince" placeholder="State/Province">
+                    <button type="button" class="voice-icon" onclick="startVoiceInput('stateProvince')">🎤</button>
+                </label>
+                <label id="zipCodeLabel">Postal/Zip Code:
+                    <input type="text" id="zipCode" placeholder="Postal/Zip Code">
+                    <button type="button" class="voice-icon" onclick="startVoiceInput('zipCode')">🎤</button>
+                </label>
+                <label id="emailLabel">Email:
+                    <input type="email" id="email" placeholder="Email">
+                    <button type="button" class="voice-icon" onclick="startVoiceInput('email')">🎤</button>
+                </label>
+                <label id="phoneNumberLabel">Phone Number:
+                    <input type="tel" id="phoneNumber" placeholder="Phone Number">
+                    <button type="button" class="voice-icon" onclick="startVoiceInput('phoneNumber')">🎤</button>
+                </label>
+            </section>
+        
+            <section class="section">
+                <h2 id="otherApplicantsTitle">Other Applicants</h2>
+                <label id="applicantTypeLabel">Applicant Type:
+                    <select id="applicantType">
+                        <option value="">Select</option>
+                        <option value="Partner">Partner</option>
+                        <option value="Child">Child</option>
+                    </select>
+                    <button type="button" class="voice-icon" onclick="startVoiceInput('applicantType')">🎤</button>
+                </label>
+                <label id="applicantFullNameLabel">Full Name:
+                    <input type="text" id="applicantFullName" placeholder="Full Name">
+                    <button type="button" class="voice-icon" onclick="startVoiceInput('applicantFullName')">🎤</button>
+                </label>
+                <label id="applicantGenderLabel">Gender:
+                    <select id="applicantGender">
+                        <option value="">Select</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <button type="button" class="voice-icon" onclick="startVoiceInput('applicantGender')">🎤</button>
+                </label>
+                <label id="applicantDobLabel">Date of Birth:
+                    <input type="date" id="applicantDob">
+                    <button type="button" class="voice-icon" onclick="startVoiceInput('applicantDob')">🎤</button>
+                </label>
+            </section>
+        
+            <section class="section">
+                <label id="digitalSignatureLabel" for="digitalSignature">Digital Signature:</label>
+                <canvas id="signatureCanvas" width="400" height="150" style="border: 1px solid #ccc;"></canvas>
+                <button type="button" id="clearSignature">Clear Signature</button>
+            </section>
+        
+            <div class="su">
+                <button id="submitButton" type="submit">Submit</button>
+            </div>
+        </form>
+        
+        
+    </div>
+
+    <script>
+        // JavaScript for handling voice input and sending audio to Flask backend
+
+        let audioRecorder;
+        let targetField;
+
+        // Start recording when the user clicks the voice input button
+        function startVoiceInput(fieldId) {
+            targetField = fieldId; // Store the field where voice input will be inserted
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then(stream => {
+                    audioRecorder = new MediaRecorder(stream);
+                    audioRecorder.start();
+                    audioRecorder.ondataavailable = (e) => {
+                        const audioBlob = new Blob([e.data], { type: 'audio/wav' });
+                        uploadAudio(audioBlob);
+                    };
+                })
+                .catch(err => console.error("Error accessing audio devices:", err));
+        }
+
+        // Stop the recording
+        function stopRecording() {
+            if (audioRecorder) {
+                audioRecorder.stop();
+            }
+        }
+
+        // Upload the audio to the Flask backend
+        function uploadAudio(audioBlob) {
+            const formData = new FormData();
+            formData.append('audio', audioBlob, 'audio.wav');
+
+            fetch('/process_audio', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById(targetField).value = data.transcribed_text;
+            })
+            .catch(error => console.error('Error uploading audio:', error));
+        }
+        function openSignup() {
+        window.location.href = '/project2/templates/signup-btn.html';
+    }
+    </script>
+</body>
+</html>
