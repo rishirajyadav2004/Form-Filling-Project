@@ -268,3 +268,60 @@ button#clearSignature:hover {
 .text-color-primary{
     color: rgb(209, 221, 224);
 }
+
+
+/* Container for header links */
+.header-links {
+    display: flex;
+    justify-content: flex-end; /* Align to the right */
+    align-items: center;
+    padding: 5px 30px;
+    background-color: #77dd72; /* Light gray background */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Styling for individual paragraphs containing the links */
+.header-links p {
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #ffffff; /* Blue color */
+    margin-right: 30px; /* Spacing between the links */
+    transition: transform 0.3s ease, color 0.3s ease, letter-spacing 0.3s ease, background-color 0.3s ease, padding 0.3s ease;
+    cursor: pointer; /* Make it feel like a button */
+    border-radius: 25px; /* Rounded corners for button effect */
+    padding: 8px 20px; /* Padding to create button appearance */
+    background-color: transparent; /* Initially transparent */
+    border: 2px solid transparent; /* Border with transparent initial state */
+}
+
+/* Remove right margin for the last link */
+.header-links p:last-child {
+    margin-right: 0;
+}
+
+/* Styling for the links */
+.header-links a {
+    color: inherit; /* Inherit color from the paragraph */
+    text-decoration: none;
+    font-weight: inherit; /* Inherit font-weight from the paragraph */
+    transition: color 0.3s ease, transform 0.3s ease, letter-spacing 0.3s ease;
+}
+
+/* Hover effects for the paragraph elements */
+.header-links p:hover {
+    color: white; /* White text on hover */
+    background-color: #0e7313; /* Blue background */
+    transform: translateY(-2px); /* Slight upward shift */
+    border-color: #007bff; /* Blue border when hovered */
+    padding: 8px 25px; /* Slightly increase padding for a button effect */
+    letter-spacing: 1px; /* Add some letter spacing */
+}
+
+/* Added bottom border for a more dynamic effect */
+.header-links a:hover {
+    color: white; /* Text color change */
+    transform: scale(1.1); /* Slightly enlarge text on hover */
+    border-bottom: 2px solid #0056b3; /* Underline effect */
+}
