@@ -148,122 +148,6 @@ function clearSignature() {
 
 
 
-// Start voice input for specific fields
-function startVoiceInput(inputId) {
-    event.preventDefault();
-
-    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-    recognition.lang = 'en-US';  // Set the language for speech recognition
-
-    recognition.start();  // Start recognition
-
-    recognition.onresult = function(event) {
-        const transcript = event.results[0][0].transcript.trim();  // Get the voice input
-        console.log("Transcript:", transcript);  // Debugging output
-
-        // Capitalize the first letter of the input
-        const capitalizedTranscript = transcript.charAt(0).toUpperCase() + transcript.slice(1);
-
-        // Handle different fields
-        if (inputId === 'dob' || inputId === 'applicantDob') {
-            handleDateOfBirthInput(capitalizedTranscript, inputId);  // Handle DOB for both applicant and other applicant
-        } 
-        else if (inputId === 'status') {
-            handleStatusInput(capitalizedTranscript);
-        } 
-        else if (inputId === 'gender') {
-            handleGenderInput(capitalizedTranscript);
-        } 
-        else {
-            // For other fields, simply populate the recognized text
-            document.getElementById(inputId).value = capitalizedTranscript;
-        }
-    };
-
-    recognition.onerror = function(event) {
-        console.error("Speech recognition error", event.error);  // Handle errors
-    };
-}
-
-// Handle Gender Input and select the correct option from the dropdown
-function handleGenderInput(transcript) {
-    const genderSelect = document.getElementById('gender');
-    let selectedOption = "";
-
-    // Check if the transcript matches the options
-    if (transcript.toLowerCase() === "male") {
-        selectedOption = "Male";
-    } else if (transcript.toLowerCase() === "female") {
-        selectedOption = "Female";
-    } else if (transcript.toLowerCase() === "other") {
-        selectedOption = "Other";
-    }
-
-    // If there's a match, set the value of the select element
-    if (selectedOption) {
-        genderSelect.value = selectedOption;
-    }
-}
-
-// Handle Date of Birth Input for both applicant and other applicant
-function handleDateOfBirthInput(transcript, inputId) {
-    // Match different date formats like MM/DD/YYYY, Month DDth YYYY, or DD Month YYYY
-    let datePattern1 = /\b(\d{1,2})\/(\d{1,2})\/(\d{4})\b/;  // MM/DD/YYYY
-    let datePattern2 = /\b(\d{1,2})\s+(\w+)\s+(\d{4})\b/;    // DD Month YYYY
-    let datePattern3 = /\b(\w+)\s+(\d{1,2})(st|nd|rd|th)?\s*,?\s*(\d{4})\b/; // Month DDth, YYYY
-    
-    let match1 = transcript.match(datePattern1);  // MM/DD/YYYY format
-    let match2 = transcript.match(datePattern2);  // DD Month YYYY format
-    let match3 = transcript.match(datePattern3);  // Month DDth, YYYY format
-    
-    let date = null;
-
-    if (match1) {
-        // Format is MM/DD/YYYY
-        const month = match1[1].padStart(2, '0');  // Add leading zero if necessary
-        const day = match1[2].padStart(2, '0');    // Add leading zero if necessary
-        const year = match1[3];
-        date = `${year}-${month}-${day}`; // Convert to YYYY-MM-DD format
-    } else if (match2) {
-        // Format is DD Month YYYY
-        const day = match2[1].padStart(2, '0');
-        const month = convertMonthToNumber(match2[2]);  // Convert month name to number
-        const year = match2[3];
-        if (month !== null) {
-            date = `${year}-${month}-${day}`;
-        }
-    } else if (match3) {
-        // Format is Month DDth, YYYY
-        const month = convertMonthToNumber(match3[1]);  // Convert month name to number
-        const day = match3[2].padStart(2, '0');
-        const year = match3[4];
-        if (month !== null) {
-            date = `${year}-${month}-${day}`;
-        }
-    }
-
-    if (date) {
-        if (inputId === 'dob') {
-            document.getElementById('dob').value = date;  // Populate the date of birth field for the main applicant
-        } else if (inputId === 'applicantDob') {
-            document.getElementById('applicantDob').value = date;  // Populate the date of birth field for the other applicant
-        }
-    }
-}
-
-// Helper function to convert month name to number
-function convertMonthToNumber(monthName) {
-    const months = {
-        "January": "01", "February": "02", "March": "03", "April": "04", "May": "05",
-        "June": "06", "July": "07", "August": "08", "September": "09", "October": "10",
-        "November": "11", "December": "12"
-    };
-
-    return months[monthName] || null;  // Return the corresponding month number, or null if not found
-}
-
-
-
 
 function openSignup() {
     // Fetch the content of signup-btn.html and load it into the container
@@ -276,3 +160,6 @@ function openSignup() {
             console.error('Error loading the signup page:', error);
         });
 }
+
+
+

@@ -16,7 +16,7 @@ def get_db_connection():
     return mysql.connector.connect(
         host="localhost",
         user="root",
-        password="Rishiraj@123",
+        password="",
         database="insurancedb"
     )
 
@@ -31,6 +31,11 @@ def signup():
     if request.method == 'POST':
         return submit_signup()
     return render_template('signup-btn.html')
+
+
+@app.route('/favicon.ico')
+def favicon():
+    return app.send_static_file('favicon.ico')
 
 # Login route
 @app.route('/login', methods=['GET', 'POST'])

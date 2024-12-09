@@ -51,14 +51,17 @@
                 <label id="firstNameLabel">First Name:
                     <input type="text" name="firstName" id="firstName" placeholder="First Name">
                     <button type="button" class="voice-icon" onclick="startVoiceInput('firstName')">🎤</button>
+                    <button type="button" class="speak-icon" onclick="speakQuestion('What is your first name?')">🔊</button>
                 </label>
                 <label id="middleNameLabel">Middle Name:
                     <input type="text" name="middleName" id="middleName" placeholder="Middle Name">
                     <button type="button" class="voice-icon" onclick="startVoiceInput('middleName')">🎤</button>
+                    <button type="button" class="speak-icon" onclick="speakQuestion('What is your middle name?')">🔊</button>
                 </label>
                 <label id="lastNameLabel">Last Name:
                     <input type="text" name="lastName" id="lastName" placeholder="Last Name">
                     <button type="button" class="voice-icon" onclick="startVoiceInput('lastName')">🎤</button>
+                    <button type="button" class="speak-icon" onclick="speakQuestion('What is your last name?')">🔊</button>
                 </label>
                 <label id="genderLabel">Gender:
                     <select name="gender" id="gender">
@@ -68,10 +71,12 @@
                         <option value="Other">Other</option>
                     </select>
                     <button type="button" class="voice-icon" onclick="startVoiceInput('gender')">🎤</button>
+                    <button type="button" class="speak-icon" onclick="speakQuestion('What is your gender?')">🔊</button>
                 </label>
                 <label id="ageLabel">Age:
                     <input type="number" name="age" id="age" placeholder="Age">
                     <button type="button" class="voice-icon" onclick="startVoiceInput('age')">🎤</button>
+                    <button type="button" class="speak-icon" onclick="speakQuestion('What is your age?')">🔊</button>
                 </label>
                 <label id="statusLabel">Status:
                     <select name="status" id="status">
@@ -83,41 +88,52 @@
                         <option value="Other">Other</option>
                     </select>
                     <button type="button" class="voice-icon" onclick="startVoiceInput('status')">🎤</button>
+                    <button type="button" class="speak-icon" onclick="speakQuestion('What is your status?')">🔊</button>
                 </label>
                 <label id="dobLabel">Date of Birth:
                     <input type="date" name="dob" id="dob">
                     <button type="button" class="voice-icon" onclick="startVoiceInput('dob')">🎤</button>
+                    <button type="button" class="speak-icon" onclick="speakQuestion('What is your date of birth?')">🔊</button>
                 </label>
             </section>
-        
+
             <section class="section">
                 <h2 id="contactInfoTitle">Contact Information</h2>
                 <label id="streetAddressLabel">Street Address:
                     <input type="text" name="streetAddress" id="streetAddress" placeholder="Street Address">
                     <button type="button" class="voice-icon" onclick="startVoiceInput('streetAddress')">🎤</button>
+                    <button type="button" class="speak-icon" onclick="startSpeak('What is your street address?')">🔊</button>
                 </label>
                 <label id="cityLabel">City:
                     <input type="text" name="city" id="city" placeholder="City">
                     <button type="button" class="voice-icon" onclick="startVoiceInput('city')">🎤</button>
+                    <button type="button" class="speak-icon" onclick="startSpeak('What city do you live in?')">🔊</button>
                 </label>
                 <label id="stateProvinceLabel">State/Province:
                     <input type="text" name="stateProvince" id="stateProvince" placeholder="State/Province">
                     <button type="button" class="voice-icon" onclick="startVoiceInput('stateProvince')">🎤</button>
+                    <button type="button" class="speak-icon" onclick="startSpeak('What is your state or province?')">🔊</button>
                 </label>
                 <label id="zipCodeLabel">Postal/Zip Code:
                     <input type="text" name="zipCode" id="zipCode" placeholder="Postal/Zip Code">
                     <button type="button" class="voice-icon" onclick="startVoiceInput('zipCode')">🎤</button>
+                    <button type="button" class="speak-icon" onclick="startSpeak('What is your postal or zip code?')">🔊</button>
                 </label>
                 <label id="emailLabel">Email:
                     <input type="email" name="email" id="email" placeholder="Email">
                     <button type="button" class="voice-icon" onclick="handleContactInfoVoiceInput('email')">🎤</button>
+                    <button type="button" class="speak-icon" onclick="startSpeak('What is your email address?')">🔊</button>
                 </label>
                 <label id="phoneNumberLabel">Phone Number:
                     <input type="tel" name="phoneNumber" id="phoneNumber" placeholder="Phone Number">
                     <button type="button" class="voice-icon" onclick="handleContactInfoVoiceInput('phoneNumber')">🎤</button>
+                    <button type="button" class="speak-icon" onclick="startSpeak('What is your phone number?')">🔊</button>
                 </label>
             </section>
+            
+            
         
+
             <section class="section">
                 <h2 id="otherApplicantsTitle">Other Applicants</h2>
                 <label id="applicantTypeLabel">Applicant Type:
@@ -131,11 +147,13 @@
                         <option value="Widowed">Widowed</option>
                         <option value="Other">Other</option>
                     </select>
-                    <button type="button" class="voice-icon" onclick="handleVoiceInputForOtherApplicants('applicantType')">🎤</button>
+                    <button type="button" class="voice-icon" onclick="handleVoiceInput('applicantType')">🎤</button>
+                    <button type="button" class="speak-icon" onclick="handleSpeak('What is the applicant type?')">🔊</button>
                 </label>
                 <label id="applicantFullNameLabel">Full Name:
                     <input type="text" name="applicantFullName" id="applicantFullName" placeholder="Full Name">
-                    <button type="button" class="voice-icon" onclick="handleVoiceInputForOtherApplicants('applicantFullName')">🎤</button>
+                    <button type="button" class="voice-icon" onclick="handleVoiceInput('applicantFullName')">🎤</button>
+                    <button type="button" class="speak-icon" onclick="handleSpeak('What is the applicant\'s full name?')">🔊</button>
                 </label>
                 <label id="applicantGenderLabel">Gender:
                     <select name="applicantGender" id="applicantGender">
@@ -144,13 +162,16 @@
                         <option value="Female">Female</option>
                         <option value="Other">Other</option>
                     </select>
-                    <button type="button" class="voice-icon" onclick="handleVoiceInputForOtherApplicants('applicantGender')">🎤</button>
+                    <button type="button" class="voice-icon" onclick="handleVoiceInput('applicantGender')">🎤</button>
+                    <button type="button" class="speak-icon" onclick="handleSpeak('What is the applicant\'s gender?')">🔊</button>
                 </label>
                 <label id="applicantDobLabel">Date of Birth:
                     <input type="date" name="applicantDob" id="applicantDob">
-                    <button type="button" class="voice-icon" onclick="handleVoiceInputForOtherApplicants('applicantDob')">🎤</button>
+                    <button type="button" class="voice-icon" onclick="handleVoiceInput('applicantDob')">🎤</button>
+                    <button type="button" class="speak-icon" onclick="handleSpeak('What is the applicant\'s date of birth?')">🔊</button>
                 </label>
             </section>
+            
         
             <section class="section">
                 <label id="digitalSignatureLabel" for="digitalSignature">Digital Signature:</label>
@@ -169,6 +190,64 @@
     </div>
 
     <script>
+        // Function for voice input
+        function handleVoiceInput(fieldId) {
+            console.log(`Voice input started for: ${fieldId}`);
+            // Add your voice input logic here
+        }
+
+        // Function for text-to-speech
+        function handleSpeak(questionText) {
+            const speech = new SpeechSynthesisUtterance(questionText);
+            speech.lang = 'en-US'; // Set language
+            speech.rate = 1; // Adjust speech rate
+            speech.pitch = 1; // Adjust pitch
+            window.speechSynthesis.speak(speech);
+        }
+
+
+
+
+       // Function for speaking a question
+function speakQuestion(questionText) {
+    const speech = new SpeechSynthesisUtterance(questionText);
+    speech.lang = 'en-US'; // Set language
+    speech.rate = 1; // Adjust speech rate
+    speech.pitch = 1; // Adjust pitch
+    window.speechSynthesis.speak(speech);
+}
+
+// Function for starting voice input (placeholder logic)
+function startVoiceInput(fieldId) {
+    console.log(`Voice input started for: ${fieldId}`);
+    // Add your voice input handling logic here, e.g., integrating with a voice recognition API
+}
+
+// Specific function for handling voice input for contact info fields
+function handleContactInfoVoiceInput(fieldId) {
+    console.log(`Voice input started for contact field: ${fieldId}`);
+    // Add specific logic for contact info voice input handling if needed
+}
+
+// Example to show how the voice function would be triggered
+function startSpeak(questionText) {
+    const speech = new SpeechSynthesisUtterance(questionText);
+    speech.lang = 'en-US'; // Set language
+    speech.rate = 1; // Set rate of speech
+    speech.pitch = 1; // Set pitch
+    window.speechSynthesis.speak(speech);
+}
+
+        
+
+
+
+
+                
+
+
+
+
         // Configure speech recognition
 const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
 recognition.lang = 'en-US'; // Use 'en-IN' for better support for Indian English
