@@ -109,7 +109,6 @@ setInterval(changeText, 3000);
 
 
 
-
 const canvas = document.getElementById('signatureCanvas');
 const ctx = canvas.getContext('2d');
 let isDrawing = false;

@@ -20,6 +20,7 @@ def get_db_connection():
         database="insurancedb"
     )
 
+
 # Home route
 @app.route('/')
 def home():
