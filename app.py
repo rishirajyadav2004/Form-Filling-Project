@@ -11,15 +11,14 @@ app.secret_key = os.urandom(24)
 # Translator for multilingual support
 translator = Translator()
 
-# Function to connect to the MySQL database
+# Function to connect to the MySQL database using environment variables
 def get_db_connection():
     return mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="insurancedb"
+        host=os.getenv("DB_HOST", "localhost"),
+        user=os.getenv("DB_USER", "root"),
+        password=os.getenv("DB_PASSWORD", "Rishiraj@123"),
+        database=os.getenv("DB_NAME", "insurancedb")
     )
-
 
 # Home route
 @app.route('/')
@@ -32,7 +31,6 @@ def signup():
     if request.method == 'POST':
         return submit_signup()
     return render_template('signup-btn.html')
-
 
 @app.route('/favicon.ico')
 def favicon():
@@ -107,7 +105,7 @@ def submit_login():
         flash("An unexpected error occurred. Please try again later.", "error")
         return redirect('/login')
 
-
+# Form-filling route
 @app.route('/form-filling', methods=['GET', 'POST'])
 def form_filling():
     if 'user_id' not in session:
@@ -115,34 +113,29 @@ def form_filling():
         return redirect('/login')
 
     if request.method == 'POST':
-        return submit_form()  # Call the function to handle the form submission
+        return submit_form()
     
-    return render_template('index.html')  # Render the form-filling template
+    return render_template('index.html')
 
-
-
+# Form submission route
 @app.route('/submit', methods=['POST'])
 def submit_form():
     try:
-        # Retrieve and validate required fields
         first_name = request.form.get('firstName')
         last_name = request.form.get('lastName')
         email = request.form.get('email')
-        
+
         if not first_name or not last_name or not email:
             flash("Essential fields (First Name, Last Name, Email) are required.", "error")
             return redirect('/form-filling')
 
-        # Validate and handle age
         age = request.form.get('age')
         if not age or not age.isdigit():
             flash("Please provide a valid age.", "error")
             return redirect('/form-filling')
 
-        # Convert age to integer
         age = int(age)
 
-        # Set default values for optional fields
         middle_name = request.form.get('middleName', '')
         gender = request.form.get('gender', '')
         status = request.form.get('status', '')
@@ -158,7 +151,6 @@ def submit_form():
         applicant_dob = request.form.get('applicantDob', None)
         digital_signature = request.form.get('digitalSignature', '')
 
-        # Database insertion
         query = """
         INSERT INTO InsuranceForms (firstName, middleName, lastName, gender, age, status, dob, streetAddress, city, 
                                     stateProvince, zipCode, email, phoneNumber, applicantType, applicantFullName, 
@@ -176,13 +168,11 @@ def submit_form():
 
         flash("Form submitted successfully!", "success")
         return redirect('/form-filling')
-    
     except Exception as e:
         print(f"Error: {e}")
         flash("An error occurred while submitting the form. Please try again.", "error")
         return redirect('/form-filling')
 
-
 # Run the app
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
