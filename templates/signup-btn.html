@@ -193,12 +193,7 @@
                 document.getElementById("middleName").value = voiceInput;
             } else if (field === 'lastName') {
                 document.getElementById("lastName").value = voiceInput;
-            } else if (field === 'email') {
-                voiceInput = voiceInput.replace(/at/g, '@').replace(/dot/g, '.').replace(/\s+/g, '');
-                document.getElementById("email").value = voiceInput.toLowerCase();
-            } else if (field === 'password') {
-                document.getElementById("password").value = voiceInput;
-            } else if (field === 'all') {
+            }) {
                 const words = voiceInput.split(' ');
                 document.getElementById("firstName").value = words[0] || '';
                 document.getElementById("middleName").value = words[1] || '';
@@ -221,14 +216,14 @@
             const formData = new FormData(document.getElementById("signupForm"));
 
             // Send form data to the backend (Flask)
-            fetch('/submit_signup', {
+            fetch('/', {
                 method: 'POST',
                 body: formData
             })
             .then(response => {
                 if (response.redirected) {
                     // If the backend sends a redirect response, redirect the user to login
-                    window.location.href = '/login';  // Redirect to /login route after successful signup
+                    window.location.href = '/';  // Redirect to /login route after successful signup
                 } else {
                     alert("Signup failed, please try again.");
                 }
